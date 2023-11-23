@@ -1,5 +1,4 @@
-//Hoàn chỉnh
-package doan_oop;
+package DOANOOP;
 import java.util.Scanner;
 
 /**
@@ -13,6 +12,7 @@ public class HopDong{
     String ngayKy;
     int thoiHan;
     static Scanner sc= new Scanner(System.in);
+    
 
     public HopDong() {
     }
@@ -30,13 +30,7 @@ public class HopDong{
     }
 
     public void setIdHD(String idHD) {
-        for(;;){
-            if(!idHD.equals("")){
-              break;
-            }
-            System.out.println("Moi nhap lai ma hop dong");
-            idHD=sc.nextLine();
-        }
+        
         this.idHD = idHD;
     }
 
@@ -45,13 +39,7 @@ public class HopDong{
     }
 
     public void setLoaiHD(String loaiHD) {
-        for(;;){
-            if(!loaiHD.equals("")){
-              break;
-            }
-            System.out.println("Moi nhap lai loai hop dong");
-            loaiHD=sc.nextLine();
-        }
+        
         this.loaiHD = loaiHD;
     }
 
@@ -60,13 +48,6 @@ public class HopDong{
     }
 
     public void setTenPB(String tenPB) {
-        for(;;){
-            if(!tenPB.equals("")){
-              break;
-            }
-            System.out.println("Moi nhap lai ma");
-            tenPB=sc.nextLine();
-        }
         this.tenPB = tenPB;
     }
 
@@ -75,13 +56,6 @@ public class HopDong{
     }
 
     public void setNgayKy(String ngayKy) {
-        for(;;){
-            if(!ngayKy.equals("")&&ngayKy.length()==10){
-              break;
-            }
-            System.out.println("Moi nhap lai ngay ky hop dong");
-            ngayKy=sc.nextLine();
-        }
         this.ngayKy = ngayKy;
     }
 
@@ -90,35 +64,34 @@ public class HopDong{
     }
 
     public void setThoiHan(int thoiHan) {
-        for(;;){
-            if(thoiHan!=0){
-              break;
-            }
-            System.out.println("Moi nhap lai ma");
-            thoiHan=Integer.parseInt(sc.nextLine());
-        }
+        
         this.thoiHan = thoiHan;
     }
     
     @Override
     public String toString() {
-        return  " idHD : " + idHD + " ,  loaiHD : " + loaiHD + ",   tenPB : " + tenPB + " ,   ngayKy : " + ngayKy + "    , thoiHan : " + thoiHan+ "thang " ;
+        return  " idHD= " + idHD + ", loaiHD=" + loaiHD + ", tenPB=" + tenPB + ", ngayKy=" + ngayKy + ", thoiHan=" + thoiHan+ "thang" ;
     }
-public void inputHopDong(){
+    public void inputHopDong(){
         System.out.println("Mời nhập mã hợp đồng");
-        setIdHD(idHD);
+        String id=sc.nextLine();
+        setIdHD(id);
         System.out.println("Mời nhập loại hợp đồng");
-        setLoaiHD(loaiHD);
+        String loai=sc.nextLine();
+        setLoaiHD(loai);
         System.out.println("Mời nhập phòng ban");
-        setTenPB(tenPB);
+        String ten=sc.nextLine();
+        setTenPB(ten);
         System.out.println("Mời nhập ngay ky hợp đồng");
-        setNgayKy(ngayKy);
+        String ngayky=sc.nextLine();
+        setNgayKy(ngayky);
         System.out.println("Mời nhập thòi hạn hợp đồng");
-        setThoiHan(thoiHan);
+        int thoihan=sc.nextInt();
+        setThoiHan(thoihan);
     }
    public void outputHopDong(){
        System.out.println(toString());
    }
-    
-    
+
+   
 }
