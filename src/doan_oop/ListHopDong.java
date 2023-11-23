@@ -1,5 +1,4 @@
-//hoàn chỉnh
-package doan_oop;
+package DOANOOP;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,23 +21,23 @@ public class ListHopDong implements ThaoTac{
         numberOfContracts = 0;
     }
      
-    public void xuat() {
+    public void xemDsHopDong() {
         for (int i = 0; i < numberOfContracts; i++) {
             System.out.println(listHopDong[i]);
         }
     }
     
-    public void them() {
+    public void themHopDong() {
         if (numberOfContracts < listHopDong.length) {
-            HopDong x=new HopDong();
-            x.inputHopDong();
-            listHopDong[numberOfContracts++]=x;
+            HopDong HD=new HopDong();
+            HD.inputHopDong();
+            listHopDong[numberOfContracts++]=HD;
         } else {
             System.out.println("Danh sách hop dong đã đầy, không thể thêm mới.");
         }
     }
     
-    public void xoa() {
+    public void xoaHopDong() {
         System.out.println("Nhap id hop dong can xoa:");
         String id= sc.nextLine();
         boolean found =false;
@@ -63,7 +62,7 @@ public class ListHopDong implements ThaoTac{
         System.out.println("Không tìm thấy hop dong có ID " + id);
     }
     
-    public void timKiem() {
+    public void timKiemHopDong() {
         System.out.println("Nhap id hop dong can tim:");
         String id= sc.nextLine();
         for (int i = 0; i < numberOfContracts; i++) {
@@ -76,7 +75,7 @@ public class ListHopDong implements ThaoTac{
         System.out.println("Không tìm thấy hợp đồng có ID " + id);
     }
     
-    public void sua() {
+    public void suaHopDong() {
     System.out.println("Nhập mã hợp đồng cần sửa:");
     String id = sc.nextLine();
     boolean found = false;
@@ -84,11 +83,7 @@ public class ListHopDong implements ThaoTac{
         if (listHopDong[i].getIdHD().equalsIgnoreCase(id)) {
             found = true;
             System.out.println("Nhập thông tin mới cho hợp đồng:");
-            listHopDong[i].setIdHD(id);
-            listHopDong[i].setLoaiHD(id);
-            listHopDong[i].setNgayKy(id);
-            listHopDong[i].setTenPB(id);
-            listHopDong[i].getThoiHan();
+            listHopDong[i].inputHopDong();
             System.out.println("Thông tin hợp đồng sau khi sửa:");
             System.out.println(listHopDong[i]);
             break;
@@ -96,6 +91,14 @@ public class ListHopDong implements ThaoTac{
     }
     System.out.println("Không tìm thấy hợp đồng có ID " + id);
 }
+   
+    public void addHopDong(HopDong HD) {
+        if (numberOfContracts < 100) {
+            listHopDong[numberOfContracts++] = HD;
+        } else {
+            System.out.println("Danh sach day");
+        }
+    }
 
     
     public void ghiFile() {
@@ -108,8 +111,10 @@ public class ListHopDong implements ThaoTac{
             }
             System.out.println("Đã ghi danh sách hợp đồng vào file " + filew);
         } catch (IOException e) {
+            System.out.println("Loi");
         }
     }
+    
     
     public void docFile() {
         try {
@@ -117,15 +122,71 @@ public class ListHopDong implements ThaoTac{
             BufferedReader reader = new BufferedReader(filer);
             String line;
             while ((line = reader.readLine()) != null) {
-                String str[] = line.split(",");
-                HopDong hopDong = new HopDong(str[0], str[1], str[2], str[3], Integer.parseInt(str[4]));
-                them();
+                String parts[] = line.split(",");
+                HopDong HD = new HopDong();
+                    HD.setIdHD(parts[0]);
+                    HD.setLoaiHD(parts[1]);
+                    HD.setTenPB(parts[2]);
+                    HD.setNgayKy(parts[3]);
+                    HD.setThoiHan(Integer.parseInt(parts[4]));
+
+                    addHopDong(HD);
+
             }
             System.out.println("Đã đọc danh sách hợp đồng từ file " + filer);
         } catch (IOException e) {
+            System.out.println("Loi");
         }
     }
-    public void menu(){
-        
+    
+    public void xuat() {
+        xemDsHopDong();
     }
+
+    public void menu() {
+        docFile();
+        int choice = 0;
+        do {
+            System.out.println("||============ Chon thao tac ===============||");
+            System.out.println("||1. Them hop dong moi                      ||");
+            System.out.println("||2. Xuat danh sach hop dong                ||");
+            System.out.println("||3. Xoa hop dong                           ||");
+            System.out.println("||4. Sua hop dong                           ||");
+            System.out.println("||5. Tim hop dong                           ||");
+            System.out.println("||0. Quay lai                               ||");
+            System.out.println("||==========================================||");
+            System.out.print("Nhap thao tac: ");
+
+            choice = Integer.parseInt(sc.nextLine());
+            switch(choice) {
+                case 1: {
+                    themHopDong();
+                    break;
+                }
+                case 2: {
+                    xuat();
+                    break;
+                }
+                case 3: {
+                    xoaHopDong();
+                    break;
+                }
+                case 4: {
+                    suaHopDong();
+                    break;
+                }
+                case 5: {
+                    timKiemHopDong();
+                    break;
+                }
+                case 0:{
+                    ghiFile();
+                    break;
+                }
+                default:
+                    System.out.println("Nhap sai thao tac, xin nhap lai !!!");
+            }
+        } while (choice != 0);
+    }
+    
 }
